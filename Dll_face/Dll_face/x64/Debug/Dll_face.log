@@ -1,1 +1,1 @@
-﻿E:\Projects\Coding\Hotkeys\wechat_faces\Dll_face\Dll_face\Dll_face.vcxproj(68,5): error MSB4019: 未找到导入的项目“D:\Library\opencv\opencv.props”。请确认 <Import> 声明中的路径正确，且磁盘上存在该文件。
+﻿E:\Projects\Coding\Hotkeys\Dll_face\Dll_face\Dll_face.vcxproj(68,5): error MSB4019: 未找到导入的项目“D:\Library\opencv\opencv.props”。请确认 <Import> 声明中的路径正确，且磁盘上存在该文件。
