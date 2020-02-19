@@ -1,0 +1,43 @@
+startx=25;
+starty=25;
+sz=32;
+
+h=size(img,1);
+w=size(img,2);
+currow=1;
+while(true)
+    curcol=1;
+    while(true)
+        if(curcol==1)
+            if(currow==1)
+                startx=25;
+                starty=25;
+            else
+                startx=mx0(currow-1,curcol);
+                starty=my0(currow-1,curcol)+sz;
+            end
+        else
+            if(currow==1)
+                startx=mx0(currow,curcol-1)+sz;
+                starty=my0(currow,curcol-1);               
+            else
+                startx=mx0(currow-1,curcol);
+                starty=my0(currow,curcol-1);                
+            end
+        end
+        [x,y,d]=getLTPos(startx,starty,img);
+        mx0(currow,curcol)=x+sz/2;
+        my0(currow,curcol)=y+sz/2;
+        emoji=uint8(img(y:y+sz-1,x:x+sz-1,:));
+        imwrite(emoji,[num2str(currow),'_',num2str(curcol),'.png']);
+        if(mx0(currow,curcol)+sz>w)
+            break
+        end
+        curcol=curcol+1;
+    end
+    if(my0(currow,curcol)+sz>h)
+        break
+    end
+    currow=currow+1;
+end
+

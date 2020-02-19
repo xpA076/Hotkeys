@@ -1,6 +1,3 @@
-/.vs
-**/bin
-**/obj
-/ahk_scripts/CapsLock_image
-/ahk_scripts/.vscode
+/ahkScripts/.vscode
 /wechat_faces
+/Taskbar
