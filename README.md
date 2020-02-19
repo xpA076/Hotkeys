@@ -1,0 +1,1 @@
+![image]( https://github.com/xpA076/Hotkeys/blob/master/images/wechat.gif)
