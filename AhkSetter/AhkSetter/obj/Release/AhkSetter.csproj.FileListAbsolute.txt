@@ -1,0 +1,11 @@
+E:\Projects\Coding\AhkSetter\AhkSetter\bin\Release\AhkSetter.exe.config
+E:\Projects\Coding\AhkSetter\AhkSetter\bin\Release\AhkSetter.exe
+E:\Projects\Coding\AhkSetter\AhkSetter\bin\Release\AhkSetter.pdb
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.AhkSetter.resources
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.AhkSetterConfigForm.resources
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.Properties.Resources.resources
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.csproj.GenerateResource.cache
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.csproj.CoreCompileInputs.cache
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.exe
+E:\Projects\Coding\AhkSetter\AhkSetter\obj\Release\AhkSetter.pdb
+E:\Projects\Coding\AHKSetter\AhkSetter\obj\Release\AhkSetter.csprojAssemblyReference.cache
