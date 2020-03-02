@@ -318,6 +318,7 @@ CapsLock & F11::
 			Send,!{V}
 			Send,{P}
 			Send,{T}
+			Send,{CtrlDown}{2}{CtrlUp}}
 		}
 		return
 		

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ahkSetterConfig>
   <hostUrl url="http://server.hhcsdtc.com:9999/" />
-  <ahkPath path="E:\Projects\Coding\Hotkeys\ahk_scripts" />
+  <ahkPath path="E:\Projects\Coding\Hotkeys\ahkScripts" />
   <user>
     <username>hhc</username>
     <password>hhcsdtc</password>
