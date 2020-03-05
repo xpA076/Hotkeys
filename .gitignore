@@ -1,5 +1,5 @@
 /ahkScripts/.vscode
-json/*.json
+/ahkScripts/json/
 */config.xml
 /wechat_faces
 /Taskbar
