@@ -138,6 +138,7 @@
             this.Controls.Add(this.buttonSet);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "AhkSetter";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AhkSetter";
             this.Load += new System.EventHandler(this.AhkSetter_Load);
             this.statusStrip1.ResumeLayout(false);

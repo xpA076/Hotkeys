@@ -104,6 +104,15 @@ CapsLock & F11::
 
 
 #If (mode == modelist["default"])
+	CapsLock & 1::
+		Run, E:\Projects\Coding\Socket\SocketFileManager\SocketFileManager\bin\Debug\SocketFileManager.exe
+		return
+
+	CapsLock & 2::
+		Run, E:\Projects\Coding\Socket\SocketServerConsole\SocketServerConsole\bin\Debug\SocketServerConsole.exe
+		return
+
+
 	CapsLock & Enter::
 		Click
 		return

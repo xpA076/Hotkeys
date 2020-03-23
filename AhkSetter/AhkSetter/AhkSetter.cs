@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,11 @@ namespace AhkSetter
 {
     public partial class AhkSetter : Form
     {
-        
+        //private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
+        private const string host = "http://localhost:9999";       // 结尾不能带"/"
+
+        private const string exeName = "AhkSetter";
+
         public AhkSetter()
         {
             InitializeComponent();
@@ -30,7 +35,7 @@ namespace AhkSetter
 
         private void buttonSet_Click(object sender, EventArgs e)
         {
-            XDocument doc = XDocument.Load(Application.StartupPath + "\\config.xml");
+            XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
             XElement root = doc.Root;
             root.Element("defaultIndex").SetElementValue("Executable", this.comboBox1.SelectedIndex);
             root.Element("defaultIndex").SetElementValue("Directory", this.comboBox2.SelectedIndex);
@@ -42,7 +47,7 @@ namespace AhkSetter
                 MessageBox.Show("Ahk scripts path invalid");
                 return;
             }
-            root.Save(Application.StartupPath + "\\config.xml");
+            root.Save(Application.StartupPath + "\\AhkSetter.config");
             string exeStr = postUrl("/Echo/AhkSetterExecutable");
             System.IO.File.WriteAllText(path + @"\json\executable.json", exeStr, Encoding.GetEncoding("GBK"));
             string dirStr = postUrl("/Echo/AhkSetterDirectory");
@@ -90,12 +95,66 @@ namespace AhkSetter
 
         private void AhkSetter_Load(object sender, EventArgs e)
         {
-            if (!File.Exists(Application.StartupPath + "\\config.xml"))
+            #region CheckUpdate
+            string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
+            try
+            {
+                // 检查 Updater.exe 是否存在，若存在则删除
+                //if (File.Exists(updaterPath)) { File.Delete(updaterPath); }
+            }
+            catch (Exception) { ; }
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
+                // 发送请求
+                request.Method = "POST";
+                request.ContentType = "application/json;charset=UTF-8";
+                var byteData = Encoding.UTF8.GetBytes(exeName);
+                var length = byteData.Length;
+                request.ContentLength = length;
+                var writer = request.GetRequestStream();
+                writer.Write(byteData, 0, length);
+                writer.Close();
+                // 接收数据
+                var response = (HttpWebResponse)request.GetResponse();
+                string responseString = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")).ReadToEnd();
+                // 获取版本号
+                Version latestVersion = new Version(responseString);
+                Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                if (latestVersion > currentVersion)
+                {
+                    // 下载Updater
+                    FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
+                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
+                    WebResponse fileResponse = fileRequest.GetResponse();
+                    Stream fileResponseStream = fileResponse.GetResponseStream();
+                    byte[] bytes = new byte[1024];
+                    int size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    while (size > 0)
+                    {
+                        fileStream.Write(bytes, 0, size);
+                        size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    }
+                    fileStream.Close();
+                    fileResponseStream.Close();
+                    // Updater -name AhkSetter
+                    Process proc = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = updaterPath;
+                    startInfo.Arguments = "-name " + exeName;
+                    Process.Start(startInfo);
+                    this.Close();
+                }
+            }
+            catch (Exception) { ; }
+            #endregion
+
+            if (!File.Exists(Application.StartupPath + "\\AhkSetter.config"))
             {
                 XDocument doc = new XDocument();
                 XElement root = new XElement("ahkSetterConfig");
                 XElement hostUrl = new XElement("hostUrl");
-                hostUrl.SetAttributeValue("url", "http://server.hhcsdtc.com:9999/");
+                hostUrl.SetAttributeValue("url", host);
                 XElement ahkPath = new XElement("ahkPath");
                 ahkPath.SetAttributeValue("path", Application.StartupPath);
                 XElement user = new XElement("user");
@@ -110,8 +169,8 @@ namespace AhkSetter
                 root.Add(ahkPath);
                 root.Add(user);
                 root.Add(defaultIndex);
-                root.Save(Application.StartupPath + "\\config.xml");
-                this.toolStripStatusLabel1.Text = "config.xml created";
+                root.Save(Application.StartupPath + "\\AhkSetter.config");
+                this.toolStripStatusLabel1.Text = "AhkSetter.config created";
                 AhkSetterConfigForm config = new AhkSetterConfigForm(this);
                 config.Show();
             }
@@ -131,7 +190,7 @@ namespace AhkSetter
                 names = jss.Deserialize<string[][]>(nameJson);
                 if (names == null){ throw new Exception("null response");}
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 MessageBox.Show("Server response error: check your username & password (or reset your page content)");
                 this.toolStripStatusLabel1.Text = "Loading error - " + DateTime.Now.ToLongTimeString();
@@ -153,7 +212,7 @@ namespace AhkSetter
                     comboBoxes[box].Items.Add((i + 1).ToString() + ": " + names[box][i]);
                 }
             }
-            XDocument doc = XDocument.Load(Application.StartupPath + "\\config.xml");
+            XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
             XElement root = doc.Root;
             this.comboBox1.SelectedIndex = int.Parse(root.Element("defaultIndex").Element("Executable").Value);
             this.comboBox2.SelectedIndex = int.Parse(root.Element("defaultIndex").Element("Directory").Value);
@@ -168,7 +227,7 @@ namespace AhkSetter
             AhkSetterPost ahkSetterPost = new AhkSetterPost();
             try
             {
-                XDocument doc = XDocument.Load(Application.StartupPath + "\\config.xml");
+                XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
                 XElement root = doc.Root;
                 ahkSetterPost.username = root.Element("user").Element("username").Value;
                 ahkSetterPost.password = root.Element("user").Element("password").Value;

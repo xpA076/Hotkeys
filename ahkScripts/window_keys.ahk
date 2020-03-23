@@ -152,9 +152,6 @@ ShellMessage( wParam,lParam ) {
     ::hj::
         WechatClickFace(8,3)
         return
-    ::smt::
-        WechatClickFace(8,4)
-        return
     ::wrk::
         WechatClickFace(8,5)
         return

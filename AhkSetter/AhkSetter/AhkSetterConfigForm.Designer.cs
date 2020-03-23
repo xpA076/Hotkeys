@@ -125,6 +125,7 @@
             this.Controls.Add(this.buttonSet);
             this.Controls.Add(this.buttonPath);
             this.Name = "AhkSetterConfigForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AhkSetterConfiguration";
             this.Load += new System.EventHandler(this.AhkSetterConfigForm_Load);
             this.ResumeLayout(false);
