@@ -17,8 +17,8 @@ namespace AhkSetter
 {
     public partial class AhkSetter : Form
     {
-        //private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
-        private const string host = "http://localhost:9999";       // 结尾不能带"/"
+        private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
+        //private const string host = "http://localhost:9999";       // 结尾不能带"/"
 
         private const string exeName = "AhkSetter";
 

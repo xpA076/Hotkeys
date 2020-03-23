@@ -17,14 +17,14 @@ namespace Updater
 
     public partial class Updater : Form
     {
-        private const string host = "http://localhost:9999";       // 结尾不能带"/"
+        private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
 
         public Updater(string name)
         {
             InitializeComponent();
             exeName = name;
             this.label1.Text = "Updating: " + name;
-            //this.FormBorderStyle = FormBorderStyle.None;
+            this.FormBorderStyle = FormBorderStyle.None;
             this.label01.Visible = false;
             this.label02.Visible = false;
             this.label03.Visible = false;
