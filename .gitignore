@@ -1,7 +1,10 @@
 /ahkScripts/.vscode
 /ahkScripts/json/
 /AhkSetter/.vs
+/AhkSetter/AhkSetter/bin
 /AhkSetter/AhkSetter/obj
+/Updater/.vs
+/Updater/Updater/obj
 */config.xml
 /wechat_faces
 /Taskbar

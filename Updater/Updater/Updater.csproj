@@ -4,30 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{270CC2ED-4955-4912-A8F5-7F606DDCEEA8}</ProjectGuid>
+    <ProjectGuid>{A0A28181-E9AF-44FD-8072-8AF4CAE02648}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>AhkSetter</RootNamespace>
-    <AssemblyName>AhkSetter</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <RootNamespace>Updater</RootNamespace>
+    <AssemblyName>Updater</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>false</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <PublishWizardCompleted>true</PublishWizardCompleted>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,31 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>AhkSetter.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>FF1E1132885FE23E3B6CF62931E1277509CAC1C5</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>AhkSetter_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -84,26 +46,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AhkSetterPost.cs" />
-    <Compile Include="AhkSetter.cs">
+    <Compile Include="Updater.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AhkSetter.Designer.cs">
-      <DependentUpon>AhkSetter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AhkSetterConfigForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="AhkSetterConfigForm.Designer.cs">
-      <DependentUpon>AhkSetterConfigForm.cs</DependentUpon>
+    <Compile Include="Updater.Designer.cs">
+      <DependentUpon>Updater.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="AhkSetter.resx">
-      <DependentUpon>AhkSetter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AhkSetterConfigForm.resx">
-      <DependentUpon>AhkSetterConfigForm.cs</DependentUpon>
+    <EmbeddedResource Include="Updater.resx">
+      <DependentUpon>Updater.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -114,8 +66,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="AhkSetter_TemporaryKey.pfx" />
-    <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -128,21 +78,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="AhkSetter.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 和 x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

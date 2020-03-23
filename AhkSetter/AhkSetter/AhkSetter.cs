@@ -100,7 +100,10 @@ namespace AhkSetter
             try
             {
                 // 检查 Updater.exe 是否存在，若存在则删除
-                //if (File.Exists(updaterPath)) { File.Delete(updaterPath); }
+                if (File.Exists(updaterPath))
+                {
+                    File.Delete(updaterPath);
+                }
             }
             catch (Exception) { ; }
             try
@@ -121,6 +124,7 @@ namespace AhkSetter
                 // 获取版本号
                 Version latestVersion = new Version(responseString);
                 Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                this.toolStripStatusLabel2.Text = "    Vers: " + currentVersion.ToString();
                 if (latestVersion > currentVersion)
                 {
                     // 下载Updater
@@ -148,7 +152,6 @@ namespace AhkSetter
             }
             catch (Exception) { ; }
             #endregion
-
             if (!File.Exists(Application.StartupPath + "\\AhkSetter.config"))
             {
                 XDocument doc = new XDocument();

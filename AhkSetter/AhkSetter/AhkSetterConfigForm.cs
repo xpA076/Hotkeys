@@ -33,12 +33,12 @@ namespace AhkSetter
         {
             try
             {
-                XDocument doc = XDocument.Load(Application.StartupPath + "\\config.xml");
+                XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
                 XElement root = doc.Root;
                 root.Element("ahkPath").SetAttributeValue("path", this.textBoxPath.Text);
                 root.Element("user").SetElementValue("username", this.textBoxUsername.Text);
                 root.Element("user").SetElementValue("password", this.textBoxPassword.Text);
-                root.Save(Application.StartupPath + "\\config.xml");
+                root.Save(Application.StartupPath + "\\AhkSetter.config");
                 this.parent.loadNames();
                 this.Close();
             }
@@ -52,7 +52,7 @@ namespace AhkSetter
         {
             try
             {
-                XDocument doc = XDocument.Load(Application.StartupPath + "\\config.xml");
+                XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
                 XElement root = doc.Root;
                 this.textBoxPath.Text = root.Element("ahkPath").Attribute("path").Value;
                 this.textBoxUsername.Text = root.Element("user").Element("username").Value;

@@ -38,6 +38,7 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.buttonRefresh = new System.Windows.Forms.Button();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,8 @@
             // statusStrip1
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1});
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2});
             this.statusStrip1.Location = new System.Drawing.Point(0, 128);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(277, 22);
@@ -123,6 +125,14 @@
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(131, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
             // AhkSetter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -158,6 +168,7 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.ComboBox comboBox4;
         private System.Windows.Forms.Button buttonRefresh;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
     }
 }
 
