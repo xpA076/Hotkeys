@@ -22,9 +22,75 @@ namespace AhkSetter
 
         private const string exeName = "AhkSetter";
 
+        private static string ConfigPath
+        {
+            get
+            {
+                return Application.StartupPath + "\\AhkSetter.config";
+            }
+        }
+
         public AhkSetter()
         {
             InitializeComponent();
+        }
+        
+        private void CheckUpdate()
+        {
+            string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
+            try
+            {
+                if (File.Exists(updaterPath))
+                {
+                    File.Delete(updaterPath);
+                }
+            }
+            catch (Exception) {; }
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
+                // 发送请求
+                request.Method = "POST";
+                request.ContentType = "application/json;charset=UTF-8";
+                var byteData = Encoding.UTF8.GetBytes(exeName);
+                var length = byteData.Length;
+                request.ContentLength = length;
+                var writer = request.GetRequestStream();
+                writer.Write(byteData, 0, length);
+                writer.Close();
+                // 接收数据
+                var response = (HttpWebResponse)request.GetResponse();
+                string responseString = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")).ReadToEnd();
+                // 获取版本号
+                Version latestVersion = new Version(responseString);
+                Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                this.toolStripStatusLabel2.Text = "    Vers: " + currentVersion.ToString();
+                if (latestVersion > currentVersion)
+                {
+                    // 下载Updater
+                    FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
+                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
+                    WebResponse fileResponse = fileRequest.GetResponse();
+                    Stream fileResponseStream = fileResponse.GetResponseStream();
+                    byte[] bytes = new byte[1024];
+                    int size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    while (size > 0)
+                    {
+                        fileStream.Write(bytes, 0, size);
+                        size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    }
+                    fileStream.Close();
+                    fileResponseStream.Close();
+                    // Updater -name AhkSetter
+                    Process proc = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = updaterPath;
+                    startInfo.Arguments = "-name " + exeName;
+                    Process.Start(startInfo);
+                    this.Close();
+                }
+            }
+            catch (Exception) {; }
         }
 
         private void buttonConfig_Click(object sender, EventArgs e)
@@ -35,7 +101,7 @@ namespace AhkSetter
 
         private void buttonSet_Click(object sender, EventArgs e)
         {
-            XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
+            XDocument doc = XDocument.Load(ConfigPath);
             XElement root = doc.Root;
             root.Element("defaultIndex").SetElementValue("Executable", this.comboBox1.SelectedIndex);
             root.Element("defaultIndex").SetElementValue("Directory", this.comboBox2.SelectedIndex);
@@ -95,64 +161,8 @@ namespace AhkSetter
 
         private void AhkSetter_Load(object sender, EventArgs e)
         {
-            #region CheckUpdate
-            string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
-            try
-            {
-                // 检查 Updater.exe 是否存在，若存在则删除
-                if (File.Exists(updaterPath))
-                {
-                    File.Delete(updaterPath);
-                }
-            }
-            catch (Exception) { ; }
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
-                // 发送请求
-                request.Method = "POST";
-                request.ContentType = "application/json;charset=UTF-8";
-                var byteData = Encoding.UTF8.GetBytes(exeName);
-                var length = byteData.Length;
-                request.ContentLength = length;
-                var writer = request.GetRequestStream();
-                writer.Write(byteData, 0, length);
-                writer.Close();
-                // 接收数据
-                var response = (HttpWebResponse)request.GetResponse();
-                string responseString = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")).ReadToEnd();
-                // 获取版本号
-                Version latestVersion = new Version(responseString);
-                Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                this.toolStripStatusLabel2.Text = "    Vers: " + currentVersion.ToString();
-                if (latestVersion > currentVersion)
-                {
-                    // 下载Updater
-                    FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
-                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
-                    WebResponse fileResponse = fileRequest.GetResponse();
-                    Stream fileResponseStream = fileResponse.GetResponseStream();
-                    byte[] bytes = new byte[1024];
-                    int size = fileResponseStream.Read(bytes, 0, bytes.Length);
-                    while (size > 0)
-                    {
-                        fileStream.Write(bytes, 0, size);
-                        size = fileResponseStream.Read(bytes, 0, bytes.Length);
-                    }
-                    fileStream.Close();
-                    fileResponseStream.Close();
-                    // Updater -name AhkSetter
-                    Process proc = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.FileName = updaterPath;
-                    startInfo.Arguments = "-name " + exeName;
-                    Process.Start(startInfo);
-                    this.Close();
-                }
-            }
-            catch (Exception) { ; }
-            #endregion
-            if (!File.Exists(Application.StartupPath + "\\AhkSetter.config"))
+            CheckUpdate();
+            if (!File.Exists(ConfigPath))
             {
                 XDocument doc = new XDocument();
                 XElement root = new XElement("ahkSetterConfig");
@@ -172,14 +182,8 @@ namespace AhkSetter
                 root.Add(ahkPath);
                 root.Add(user);
                 root.Add(defaultIndex);
-                root.Save(Application.StartupPath + "\\AhkSetter.config");
+                root.Save(ConfigPath);
                 this.toolStripStatusLabel1.Text = "AhkSetter.config created";
-                AhkSetterConfigForm config = new AhkSetterConfigForm(this);
-                config.Show();
-            }
-            else
-            {
-                loadNames();
             }
         }
 
@@ -215,7 +219,7 @@ namespace AhkSetter
                     comboBoxes[box].Items.Add((i + 1).ToString() + ": " + names[box][i]);
                 }
             }
-            XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
+            XDocument doc = XDocument.Load(ConfigPath);
             XElement root = doc.Root;
             this.comboBox1.SelectedIndex = int.Parse(root.Element("defaultIndex").Element("Executable").Value);
             this.comboBox2.SelectedIndex = int.Parse(root.Element("defaultIndex").Element("Directory").Value);
@@ -270,6 +274,20 @@ namespace AhkSetter
         private void buttonRefresh_Click(object sender, EventArgs e)
         {
             loadNames();
+        }
+
+        private void AhkSetter_Shown(object sender, EventArgs e)
+        {
+            XDocument doc = XDocument.Load(Application.StartupPath + "\\AhkSetter.config");
+            if (string.IsNullOrEmpty(doc.Root.Element("user").Element("username").Value))
+            {
+                AhkSetterConfigForm config = new AhkSetterConfigForm(this);
+                config.Show();
+            }
+            else
+            {
+                loadNames();
+            }
         }
     }
 }

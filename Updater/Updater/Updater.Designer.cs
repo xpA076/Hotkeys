@@ -105,7 +105,7 @@
             this.Opacity = 0.8D;
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Form1";
+            this.Text = "Updater";
             this.Shown += new System.EventHandler(this.Updater_Shown);
             this.ResumeLayout(false);
             this.PerformLayout();

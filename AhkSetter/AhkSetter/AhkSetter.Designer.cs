@@ -33,12 +33,12 @@
             this.buttonConfig = new System.Windows.Forms.Button();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.buttonRefresh = new System.Windows.Forms.Button();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,7 +47,7 @@
             this.buttonSet.Location = new System.Drawing.Point(178, 52);
             this.buttonSet.Name = "buttonSet";
             this.buttonSet.Size = new System.Drawing.Size(75, 23);
-            this.buttonSet.TabIndex = 3;
+            this.buttonSet.TabIndex = 1;
             this.buttonSet.Text = "Set";
             this.buttonSet.UseVisualStyleBackColor = true;
             this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
@@ -57,7 +57,7 @@
             this.buttonConfig.Location = new System.Drawing.Point(178, 84);
             this.buttonConfig.Name = "buttonConfig";
             this.buttonConfig.Size = new System.Drawing.Size(75, 23);
-            this.buttonConfig.TabIndex = 4;
+            this.buttonConfig.TabIndex = 6;
             this.buttonConfig.Text = "Config";
             this.buttonConfig.UseVisualStyleBackColor = true;
             this.buttonConfig.Click += new System.EventHandler(this.buttonConfig_Click);
@@ -79,6 +79,14 @@
             this.toolStripStatusLabel1.Size = new System.Drawing.Size(17, 17);
             this.toolStripStatusLabel1.Text = "...";
             // 
+            // toolStripStatusLabel2
+            // 
+            this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.toolStripStatusLabel2.Size = new System.Drawing.Size(131, 17);
+            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
+            // 
             // comboBox1
             // 
             this.comboBox1.Font = new System.Drawing.Font("楷体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -86,7 +94,7 @@
             this.comboBox1.Location = new System.Drawing.Point(22, 12);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(125, 22);
-            this.comboBox1.TabIndex = 6;
+            this.comboBox1.TabIndex = 2;
             // 
             // comboBox2
             // 
@@ -95,7 +103,7 @@
             this.comboBox2.Location = new System.Drawing.Point(22, 39);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(125, 22);
-            this.comboBox2.TabIndex = 7;
+            this.comboBox2.TabIndex = 3;
             // 
             // comboBox3
             // 
@@ -104,7 +112,7 @@
             this.comboBox3.Location = new System.Drawing.Point(22, 66);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(125, 22);
-            this.comboBox3.TabIndex = 8;
+            this.comboBox3.TabIndex = 4;
             // 
             // comboBox4
             // 
@@ -113,25 +121,17 @@
             this.comboBox4.Location = new System.Drawing.Point(22, 93);
             this.comboBox4.Name = "comboBox4";
             this.comboBox4.Size = new System.Drawing.Size(125, 22);
-            this.comboBox4.TabIndex = 9;
+            this.comboBox4.TabIndex = 5;
             // 
             // buttonRefresh
             // 
             this.buttonRefresh.Location = new System.Drawing.Point(178, 20);
             this.buttonRefresh.Name = "buttonRefresh";
             this.buttonRefresh.Size = new System.Drawing.Size(75, 23);
-            this.buttonRefresh.TabIndex = 10;
+            this.buttonRefresh.TabIndex = 7;
             this.buttonRefresh.Text = "Refresh";
             this.buttonRefresh.UseVisualStyleBackColor = true;
             this.buttonRefresh.Click += new System.EventHandler(this.buttonRefresh_Click);
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(131, 17);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // AhkSetter
             // 
@@ -151,6 +151,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AhkSetter";
             this.Load += new System.EventHandler(this.AhkSetter_Load);
+            this.Shown += new System.EventHandler(this.AhkSetter_Shown);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

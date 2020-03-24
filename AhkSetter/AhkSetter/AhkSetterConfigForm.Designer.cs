@@ -55,7 +55,7 @@
             this.buttonSet.Location = new System.Drawing.Point(202, 103);
             this.buttonSet.Name = "buttonSet";
             this.buttonSet.Size = new System.Drawing.Size(75, 26);
-            this.buttonSet.TabIndex = 2;
+            this.buttonSet.TabIndex = 5;
             this.buttonSet.Text = "Set";
             this.buttonSet.UseVisualStyleBackColor = true;
             this.buttonSet.Click += new System.EventHandler(this.buttonSet_Click);
@@ -100,7 +100,7 @@
             this.textBoxPath.Location = new System.Drawing.Point(38, 31);
             this.textBoxPath.Name = "textBoxPath";
             this.textBoxPath.Size = new System.Drawing.Size(264, 21);
-            this.textBoxPath.TabIndex = 7;
+            this.textBoxPath.TabIndex = 2;
             // 
             // label1
             // 

@@ -32,5 +32,29 @@ using System.Runtime.InteropServices;
 // 可以指定所有值，也可以使用以下所示的 "*" 预置版本号和修订号
 // 方法是按如下所示使用“*”: :
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.0")]
+
+
+/*
+ * * * * * *  Update record  * * * * * * 
+ * 
+ *      Version  : 1.1.0.0 
+ *      DateTime : 2020.03.24 16:29
+ *      Content  : 添加自动更新模块
+ * 
+ *      Version  : 1.1.1.0 
+ *      DateTime : 2020.03.24 17:32
+ *      Content  : 优化窗体启动逻辑和用户登录逻辑
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+[assembly: AssemblyVersion("1.1.1.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
