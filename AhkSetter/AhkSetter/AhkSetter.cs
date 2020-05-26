@@ -35,63 +35,7 @@ namespace AhkSetter
             InitializeComponent();
         }
         
-        private void CheckUpdate()
-        {
-            string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
-            try
-            {
-                if (File.Exists(updaterPath))
-                {
-                    File.Delete(updaterPath);
-                }
-            }
-            catch (Exception) {; }
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
-                // 发送请求
-                request.Method = "POST";
-                request.ContentType = "application/json;charset=UTF-8";
-                var byteData = Encoding.UTF8.GetBytes(exeName);
-                var length = byteData.Length;
-                request.ContentLength = length;
-                var writer = request.GetRequestStream();
-                writer.Write(byteData, 0, length);
-                writer.Close();
-                // 接收数据
-                var response = (HttpWebResponse)request.GetResponse();
-                string responseString = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")).ReadToEnd();
-                // 获取版本号
-                Version latestVersion = new Version(responseString);
-                Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
-                this.toolStripStatusLabel2.Text = "    Vers: " + currentVersion.ToString();
-                if (latestVersion > currentVersion)
-                {
-                    // 下载Updater
-                    FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
-                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
-                    WebResponse fileResponse = fileRequest.GetResponse();
-                    Stream fileResponseStream = fileResponse.GetResponseStream();
-                    byte[] bytes = new byte[1024];
-                    int size = fileResponseStream.Read(bytes, 0, bytes.Length);
-                    while (size > 0)
-                    {
-                        fileStream.Write(bytes, 0, size);
-                        size = fileResponseStream.Read(bytes, 0, bytes.Length);
-                    }
-                    fileStream.Close();
-                    fileResponseStream.Close();
-                    // Updater -name AhkSetter
-                    Process proc = new Process();
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.FileName = updaterPath;
-                    startInfo.Arguments = "-name " + exeName;
-                    Process.Start(startInfo);
-                    this.Close();
-                }
-            }
-            catch (Exception) {; }
-        }
+        
 
         private void buttonConfig_Click(object sender, EventArgs e)
         {
@@ -110,7 +54,7 @@ namespace AhkSetter
             string path = root.Element("ahkPath").Attribute("path").Value;
             if (!File.Exists(path + "\\init.ahk"))
             {
-                MessageBox.Show("Ahk scripts path invalid");
+                MessageBox.Show("Ahk scripts path invalid. Select the directory with init.ahk");
                 return;
             }
             root.Save(Application.StartupPath + "\\AhkSetter.config");
@@ -288,6 +232,64 @@ namespace AhkSetter
             {
                 loadNames();
             }
+        }
+
+        private void CheckUpdate()
+        {
+            string updaterPath = Path.Combine(Application.StartupPath, "Updater.exe");
+            try
+            {
+                if (File.Exists(updaterPath))
+                {
+                    File.Delete(updaterPath);
+                }
+            }
+            catch (Exception) {; }
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
+                // 发送请求
+                request.Method = "POST";
+                request.ContentType = "application/json;charset=UTF-8";
+                var byteData = Encoding.UTF8.GetBytes(exeName);
+                var length = byteData.Length;
+                request.ContentLength = length;
+                var writer = request.GetRequestStream();
+                writer.Write(byteData, 0, length);
+                writer.Close();
+                // 接收数据
+                var response = (HttpWebResponse)request.GetResponse();
+                string responseString = new StreamReader(response.GetResponseStream(), Encoding.GetEncoding("utf-8")).ReadToEnd();
+                // 获取版本号
+                Version latestVersion = new Version(responseString);
+                Version currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+                this.toolStripStatusLabel2.Text = "    Vers: " + currentVersion.ToString();
+                if (latestVersion > currentVersion)
+                {
+                    // 下载Updater
+                    FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
+                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
+                    WebResponse fileResponse = fileRequest.GetResponse();
+                    Stream fileResponseStream = fileResponse.GetResponseStream();
+                    byte[] bytes = new byte[1024];
+                    int size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    while (size > 0)
+                    {
+                        fileStream.Write(bytes, 0, size);
+                        size = fileResponseStream.Read(bytes, 0, bytes.Length);
+                    }
+                    fileStream.Close();
+                    fileResponseStream.Close();
+                    // Updater -name AhkSetter
+                    Process proc = new Process();
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = updaterPath;
+                    startInfo.Arguments = "-name " + exeName;
+                    Process.Start(startInfo);
+                    this.Close();
+                }
+            }
+            catch (Exception) {; }
         }
     }
 }

@@ -21,7 +21,7 @@ WechatClickFace(idx1,idx2){
 	roi:={"l":px-135, "r":px+320, "t":py-295, "b":py+0}
 	Loop 3{
 		ans:=VisualGetImagePos(px, py, roi, [1,1,idx1,idx2])
-		if (ans<0.01){
+		if (ans<0.02){
 			MouseMove,px,py,0
 			Click
 			break

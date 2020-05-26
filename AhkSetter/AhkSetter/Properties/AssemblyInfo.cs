@@ -45,7 +45,9 @@ using System.Runtime.InteropServices;
  *      DateTime : 2020.03.24 17:32
  *      Content  : 优化窗体启动逻辑和用户登录逻辑
  * 
- * 
+ *      Version  : 1.2.0.0 
+ *      DateTime : 2020.05.26 14:24
+ *      Content  : 写入注册表项, 添加浏览器启动支持
  * 
  * 
  * 
@@ -56,5 +58,5 @@ using System.Runtime.InteropServices;
  * 
  */
 
-[assembly: AssemblyVersion("1.1.1.0")]
+[assembly: AssemblyVersion("1.2.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
