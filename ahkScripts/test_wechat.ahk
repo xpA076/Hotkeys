@@ -32,5 +32,6 @@ py:=0
 
 ans:=DllCall("Dll_face.dll\GetImagePosition"
 		,"Int*",px,"Int*",py,"Ptr",&rect,"Ptr",&spath,"Cdecl double")
+aaa:=ErrorLevel
 MsgBox, Emoji icon position: %px%, %py%
 MouseMove, px,py,10

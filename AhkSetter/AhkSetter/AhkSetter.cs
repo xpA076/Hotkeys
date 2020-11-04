@@ -17,10 +17,10 @@ namespace AhkSetter
 {
     public partial class AhkSetter : Form
     {
-        private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
-        //private const string host = "http://localhost:9999";       // 结尾不能带"/"
+        //private const string host = "http://server.hhcsdtc.com:9999";       // 结尾不能带"/"
+        private const string host = "http://localhost:9999";       // 结尾不能带"/"
 
-        private const string exeName = "AhkSetter";
+        private const string exeName = "AhkSetter.exe";
 
         private static string ConfigPath
         {
@@ -58,15 +58,15 @@ namespace AhkSetter
                 return;
             }
             root.Save(Application.StartupPath + "\\AhkSetter.config");
-            string exeStr = postUrl("/Echo/AhkSetterExecutable");
+            string exeStr = postUrl("/Hotkey/AhkSetterExecutable");
             System.IO.File.WriteAllText(path + @"\json\executable.json", exeStr, Encoding.GetEncoding("GBK"));
-            string dirStr = postUrl("/Echo/AhkSetterDirectory");
+            string dirStr = postUrl("/Hotkey/AhkSetterDirectory");
             System.IO.File.WriteAllText(path + @"\json\directory.json", dirStr, Encoding.GetEncoding("GBK"));
-            string webStr = postUrl("/Echo/AhkSetterWebpage");
+            string webStr = postUrl("/Hotkey/AhkSetterWebpage");
             System.IO.File.WriteAllText(path + @"\json\webpage.json", webStr, Encoding.GetEncoding("GBK"));
 
             // wechat script 替换
-            string wechatStr = postUrl("/Echo/AhkSetterWechat");
+            string wechatStr = postUrl("/Hotkey/AhkSetterWechat");
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string[] hotkeys = jss.Deserialize<string[]>(wechatStr);
             StreamReader sr = new StreamReader(path + @"\window_keys.ahk", Encoding.GetEncoding("GBK"));
@@ -133,7 +133,7 @@ namespace AhkSetter
 
         public void loadNames()
         {
-            string nameJson = postUrl("/Echo/AhkSetterIndex");
+            string nameJson = postUrl("/Hotkey/AhkSetterIndex");
             JavaScriptSerializer jss = new JavaScriptSerializer();
             string[][] names;
             try
@@ -247,7 +247,7 @@ namespace AhkSetter
             catch (Exception) {; }
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/Echo/CheckVersion");
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(host + "/File/CheckVersion");
                 // 发送请求
                 request.Method = "POST";
                 request.ContentType = "application/json;charset=UTF-8";
@@ -268,7 +268,7 @@ namespace AhkSetter
                 {
                     // 下载Updater
                     FileStream fileStream = new FileStream(updaterPath, FileMode.Create);
-                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/Updater.exe");
+                    HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/DownloadProgram/Updater.exe");
                     WebResponse fileResponse = fileRequest.GetResponse();
                     Stream fileResponseStream = fileResponse.GetResponseStream();
                     byte[] bytes = new byte[1024];

@@ -155,11 +155,17 @@ ShellMessage( wParam,lParam ) {
     ::wrk::
         WechatClickFace(8,5)
         return
+    ::doge::
+        WechatClickFace(8,13)
+        return
     ::wt::
-        WechatClickFace(9,2)
+        WechatClickFace(9,14)
+        return
+    ::ld::
+        WechatClickFace(10,7)
         return
     ::hh::
-        WechatClickFace(10,4)
+        WechatClickFace(11,1)
         return
 #If
 #If WinActive("ahk_class TXGuiFoundation")

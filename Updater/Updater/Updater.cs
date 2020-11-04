@@ -22,7 +22,8 @@ namespace Updater
         public Updater(string name)
         {
             InitializeComponent();
-            exeName = name;
+
+            exeName = name.IndexOf('.') == -1 ? name : name.Split('.')[0];
             this.label1.Text = "Updating: " + name;
             this.FormBorderStyle = FormBorderStyle.None;
             this.label01.Visible = false;
@@ -77,7 +78,7 @@ namespace Updater
                     this.Update();
                 }));
                 FileStream fileStream = new FileStream(exePath, FileMode.Create);
-                HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/Download/" + exeName + ".exe");
+                HttpWebRequest fileRequest = (HttpWebRequest)WebRequest.Create(host + "/File/DownloadProgram/" + exeName + ".exe");
                 WebResponse fileResponse = fileRequest.GetResponse();
                 Stream fileResponseStream = fileResponse.GetResponseStream();
                 byte[] bytes = new byte[1024];

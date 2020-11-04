@@ -179,13 +179,16 @@ CapsLock & F11::
         return
 
 	CapsLock & n::
+        Run, WltSetter.exe
+        return
+/*
 		InputBox, val,wlt.ustc.edu.cn/cgi-bin/ip,%A_Space%%A_Space%选择网络通端口: ,,200,125
 		if (!ErrorLevel && val>=1 && val<=9){
 			channel:=val-1
 			Run, curl --data "name=hhhhhhhc&password=hhcsdtc&cmd=set&type=%channel%&exp=0" http://wlt.ustc.edu.cn/cgi-bin/ip 
 		}
 		return 
-
+*/
 
 	CapsLock & p::
 		Process, Exist, PotPlayerMini64.exe

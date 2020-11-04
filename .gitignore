@@ -8,3 +8,5 @@
 */config.xml
 /wechat_faces
 /Taskbar
+*.log
+*.db
